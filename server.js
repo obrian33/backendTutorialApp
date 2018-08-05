@@ -25,6 +25,7 @@ router.route('/issues').get((req, res) => {
         if (err) {
             console.log(err);
         } else {
+            console.log('server');
             res.json(issues);
         }
     });
@@ -49,6 +50,17 @@ router.route('/issues/add').post((req, res) => {
         .catch(err => {
             res.status(400).send('Failed to create new record');
         });
+});
+
+router.route('issues/:id').put((req, res) => {
+    Issue.findByIdAndUpdate(req.params.id, req.body, (err, issue) => {
+        if (err) {
+            console.log(err);
+        } else {
+
+            console.log('updated!');
+        }
+    });
 });
 
 app.listen(4000, () => {
