@@ -1,8 +1,8 @@
-import { express } from 'express';
-import { cors } from 'cors';
-import { bodyparser } from 'body-parser';
-import { mongoose } from 'mongoose';
-import { Issue } from 'models/Issue';
+import express from 'express';
+import cors  from 'cors';
+import bodyparser from 'body-parser';
+import mongoose from 'mongoose';
+import Issue  from './models/Issue';
 
 const app = express();
 const router = express.Router();
@@ -10,12 +10,12 @@ const router = express.Router();
 app.use(cors());
 app.use(bodyparser.json());
 
-mongoose.connect('mongodb://[server]/issues');
+mongoose.connect('mongodb://localhost/issues');
 
 const connection = mongoose.connection;
 
-connection.open('open', () => {
-    console.log('Mongo working');
+connection.once('open', () => {
+    console.log('MongoDB database connection established successfully!');
 });
 
 app.use('/', router);
